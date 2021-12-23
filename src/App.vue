@@ -2,40 +2,79 @@
   <div id="app">
     <div class="wrapper">
       <h1>Inputs</h1>
-      <Input />
 
-      <Input error />
+      <div class="row">
+        <TextDesc text="<Input />" />
+        <Input />
+      </div>
 
-      <Input disabled />
+      <div class="row">
+        <TextDesc text="<Input error />" />
+        <Input error />
+      </div>
 
-      <Input helperText="Some interesting text" />
+      <div class="row">
+        <TextDesc text="<Input disabled />" />
+        <Input disabled />
+      </div>
 
-      <Input helperText="Some interesting text" error />
+      <div class="row">
+        <TextDesc text="<Input helperText='Some interesting text' />" />
+        <Input helperText="Some interesting text" />
+      </div>
 
-      <Input startIcon />
+      <div class="row">
+        <TextDesc text="<Input helperText='Some interesting text' error />" />
+        <Input helperText="Some interesting text" error />
+      </div>
 
-      <Input endIcon />
+      <div class="row">
+        <TextDesc text="<Input startIcon />" />
+        <Input startIcon />
+      </div>
 
-      <Input value="text" />
+      <div class="row">
+        <TextDesc text="<Input endIcon />" />
+        <Input endIcon />
+      </div>
 
-      <Input size="sm" />
+      <div class="row">
+        <TextDesc text="<Input value='text' />" />
+        <Input value="text" />
+      </div>
 
-      <Input size="md" />
+      <div class="row">
+        <TextDesc text="<Input size='sm' />" />
+        <Input size="sm" />
+      </div>
 
-      <Input fullWidth />
+      <div class="row">
+        <TextDesc text="<Input size='md' />" />
+        <Input size="md" />
+      </div>
 
-      <Input multiline row="4" />
+      <div class="row">
+        <TextDesc text="<Input fullWidth />" />
+        <Input fullWidth />
+      </div>
+
+      <div class="row">
+        <TextDesc text="<Input multiline row='4' />" />
+        <Input multiline row="4" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Input from "@/components/Input";
+import TextDesc from "@/components/TextDesc";
 
 export default {
   name: "App",
   components: {
     Input,
+    TextDesc,
   },
 };
 </script>
@@ -54,5 +93,9 @@ export default {
 .wrapper {
   width: 800px;
   margin: 0 auto;
+}
+
+.row {
+  margin-bottom: 30px;
 }
 </style>

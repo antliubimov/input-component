@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "material-design-icons": "^3.0.1",
+    "material-icons": "^1.10.4",
     "vue": "^2.6.11"
   },
   "devDependencies": {

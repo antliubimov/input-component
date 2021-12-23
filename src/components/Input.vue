@@ -1,32 +1,63 @@
 <template>
   <div class="input-wrapper">
-    <label :class="['input-label', { 'input-label--error': isError }]">
+    <label
+      v-if="isMultiline"
+      :class="[
+        'input-label',
+        {
+          'input-label--error': isError,
+        },
+      ]"
+    >
       {{ label }}
       <textarea
-        v-if="isMultiline"
         :class="[
           'input',
           isSize,
-          { 'input--error': isError, 'full-width': isFullWidth },
+          {
+            'input--error': isError,
+            'full-width': isFullWidth,
+          },
         ]"
         v-model="capitalizeFirstLetter"
         :placeholder="placeholder"
         :disabled="isDisabled"
-        :rows="row"
+        :rows="rowsNumber"
       ></textarea>
+    </label>
 
+    <label
+      v-else
+      :class="[
+        'input-label',
+        {
+          'input-label--error': isError,
+        },
+      ]"
+    >
+      {{ label }}
       <input
-        v-else
         :class="[
           'input',
           isSize,
-          { 'input--error': isError, 'full-width': isFullWidth },
+          {
+            'input--error': isError,
+            'full-width': isFullWidth,
+            'input--start-icon': isStartIcon,
+            'input--end-icon': isEndIcon,
+          },
         ]"
-        :type="type"
+        type="text"
         :placeholder="placeholder"
         v-model="capitalizeFirstLetter"
         :disabled="isDisabled"
       />
+      <span v-if="startIcon" class="material-icons md-24 icon start-icon"
+        >phone</span
+      >
+      <span v-if="endIcon" class="material-icons md-24 icon end-icon"
+        >lock</span
+      >
     </label>
     <p :class="['helper-text', { 'helper-text--error': isError }]">
       {{ helperText }}
@@ -35,6 +66,7 @@
 </template>
 
 <script>
+import "material-icons/iconfont/material-icons.css";
 export default {
   name: "Input",
   props: {
@@ -75,18 +107,19 @@ export default {
       default: false,
     },
     row: {
-      type: Number,
-      default: 1,
+      type: String,
+      default: "1",
+    },
+    startIcon: {
+      type: Boolean,
+      default: false,
+    },
+    endIcon: {
+      type: Boolean,
+      default: false,
     },
   },
-  data() {
-    return {
-      type: "text",
-    };
-  },
-  created() {
-    this.isMultiline();
-  },
+
   computed: {
     capitalizeFirstLetter() {
       if (this.value) {
@@ -110,6 +143,18 @@ export default {
         return "input--sm";
       }
     },
+    isStartIcon() {
+      return this.startIcon;
+    },
+    isEndIcon() {
+      return this.endIcon;
+    },
+    rowsNumber() {
+      if (!isNaN(parseInt(this.row))) {
+        return this.row;
+      }
+      return "";
+    },
     isMultiline() {
       return this.multiline;
     },
@@ -119,6 +164,7 @@ export default {
 
 <style scoped>
 .input-wrapper {
+  position: relative;
   font-family: "Noto Sans Display", sans-serif;
   font-style: normal;
   letter-spacing: 0;
@@ -139,6 +185,7 @@ export default {
 }
 
 .input {
+  box-sizing: border-box;
   display: block;
   width: 200px;
   margin-bottom: 4px;
@@ -174,6 +221,13 @@ export default {
 .full-width {
   width: 100%;
 }
+.helper-text {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  color: rgba(130, 130, 130, 1);
+}
 
 .input--error,
 .input--error:focus {
@@ -186,15 +240,28 @@ export default {
   color: rgba(211, 47, 47, 1);
 }
 
-.helper-text {
-  margin: 0;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 14px;
+.helper-text:hover,
+.input-label--error:hover ~ .helper-text {
   color: rgba(130, 130, 130, 1);
 }
 
-.helper-text:hover {
+.input--start-icon {
+  padding-left: 45px;
+}
+.input--end-icon {
+  padding-right: 45px;
+}
+
+.icon {
+  position: absolute;
+  top: 38px;
   color: rgba(130, 130, 130, 1);
+}
+
+.start-icon {
+  left: 11px;
+}
+.end-icon {
+  left: 164px;
 }
 </style>
