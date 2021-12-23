@@ -23,6 +23,7 @@
         :placeholder="placeholder"
         :disabled="isDisabled"
         :rows="rowsNumber"
+        @input="onInput"
       ></textarea>
     </label>
 
@@ -81,6 +82,7 @@ export default {
     label: {
       type: String,
       default: "Label",
+      required: true,
     },
     helperText: {
       type: String,
@@ -97,6 +99,9 @@ export default {
     size: {
       type: String,
       default: "md",
+      validator: function (value) {
+        return ["sm", "md"].indexOf(value) !== -1;
+      },
     },
     fullWidth: {
       type: Boolean,
@@ -157,6 +162,11 @@ export default {
     },
     isMultiline() {
       return this.multiline;
+    },
+  },
+  methods: {
+    onInput() {
+      this.$emit("onInput");
     },
   },
 };
