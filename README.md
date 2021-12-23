@@ -74,6 +74,9 @@ $npm run build
 
 # Lints and fixes files
 $ npm run lint
+
+# Run Storybook
+$ npm run storybook
 ```
 
 ## Acknowledgements
